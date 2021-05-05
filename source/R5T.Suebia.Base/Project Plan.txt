@@ -1,0 +1,9 @@
+R5T.Suebia.Base - Base service definitions library for secrets directory path related services library.
+
+* Async.
+* Parameterless GetX() methods.
+* Stringly-typed paths.
+
+
+Goals
+
