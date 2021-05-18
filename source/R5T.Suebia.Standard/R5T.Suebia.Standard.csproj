@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\R5T.Bulgaria\source\R5T.Bulgaria.Default\R5T.Bulgaria.Default.csproj" />
+    <ProjectReference Include="..\..\..\R5T.Bulgaria\source\R5T.Bulgaria.UserProfileDirectory\R5T.Bulgaria.UserProfileDirectory.csproj" />
+    <ProjectReference Include="..\..\..\R5T.Carpathia\source\R5T.Carpathia.Costobocia\R5T.Carpathia.Costobocia.csproj" />
+    <ProjectReference Include="..\..\..\R5T.Carpathia\source\R5T.Carpathia.Default\R5T.Carpathia.Default.csproj" />
+    <ProjectReference Include="..\..\..\R5T.Costobocia\source\R5T.Costobocia.Bulgaria\R5T.Costobocia.Bulgaria.csproj" />
+    <ProjectReference Include="..\..\..\R5T.Costobocia\source\R5T.Costobocia.Default\R5T.Costobocia.Default.csproj" />
+    <ProjectReference Include="..\..\..\R5T.Quadia\source\R5T.Quadia.Carpathia\R5T.Quadia.Carpathia.csproj" />
+    <ProjectReference Include="..\..\..\R5T.Visigothia\source\R5T.Visigothia.Default\R5T.Visigothia.Default.csproj" />
+    <ProjectReference Include="..\R5T.Suebia.Default\R5T.Suebia.Default.csproj" />
+    <ProjectReference Include="..\R5T.Suebia.Quadia\R5T.Suebia.Quadia.csproj" />
+  </ItemGroup>
+
+</Project>
