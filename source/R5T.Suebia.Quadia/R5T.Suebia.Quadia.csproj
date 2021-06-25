@@ -9,6 +9,7 @@
     <ProjectReference Include="..\..\..\R5T.Lombardy.Base\source\R5T.Lombardy.Base\R5T.Lombardy.Base.csproj" />
     <ProjectReference Include="..\..\..\R5T.Quadia\source\R5T.Quadia.Base\R5T.Quadia.Base.csproj" />
     <ProjectReference Include="..\R5T.Suebia.Base\R5T.Suebia.Base.csproj" />
+    <ProjectReference Include="..\R5T.Suebia.Quadia.Base\R5T.Suebia.Quadia.Base.csproj" />
     <ProjectReference Include="..\R5T.Suebia\R5T.Suebia.csproj" />
   </ItemGroup>
 

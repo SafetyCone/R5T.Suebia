@@ -1,0 +1,2 @@
+R5T.Suebia.D0073.Base - Base service definitions library for the machine-location aware ISecretsDirectoryPathProvider service, IMachineLocationAwareSecretsDirectoryPathProvider.
+

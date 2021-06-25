@@ -40,5 +40,34 @@ namespace R5T.Suebia.Quadia
 
             return serviceAction;
         }
+
+        /// <summary>
+        /// Adds the <see cref="SecretsDirectoryPathProvider"/> implementation of <see cref="IOrganizationDataSecretsDirectoryPathProvider"/> as a <see cref="ServiceLifetime.Singleton"/>.
+        /// </summary>
+        public static IServiceCollection AddSecretsDirectoryPathProviderAsOrganizationDataSecrets(this IServiceCollection services,
+            IServiceAction<IOrganizationDataDirectoryPathProvider> organizationDataDirectoryPathProviderAction,
+            IServiceAction<IStringlyTypedPathOperator> stringlyTypedPathOperatorAction)
+        {
+            services.AddSingleton<IOrganizationDataSecretsDirectoryPathProvider, SecretsDirectoryPathProvider>()
+                .Run(organizationDataDirectoryPathProviderAction)
+                .Run(stringlyTypedPathOperatorAction)
+                ;
+
+            return services;
+        }
+
+        /// <summary>
+        /// Adds the <see cref="SecretsDirectoryPathProvider"/> implementation of <see cref="IOrganizationDataSecretsDirectoryPathProvider"/> as a <see cref="ServiceLifetime.Singleton"/>.
+        /// </summary>
+        public static IServiceAction<IOrganizationDataSecretsDirectoryPathProvider> AddSecretsDirectoryPathProviderAsOrganizationDataSecretsAction(this IServiceCollection services,
+            IServiceAction<IOrganizationDataDirectoryPathProvider> organizationDataDirectoryPathProviderAction,
+            IServiceAction<IStringlyTypedPathOperator> stringlyTypedPathOperatorAction)
+        {
+            var serviceAction = ServiceAction.New<IOrganizationDataSecretsDirectoryPathProvider>(() => services.AddSecretsDirectoryPathProviderAsOrganizationDataSecrets(
+                organizationDataDirectoryPathProviderAction,
+                stringlyTypedPathOperatorAction));
+
+            return serviceAction;
+        }
     }
 }

@@ -2,27 +2,21 @@
 
 using Microsoft.Extensions.DependencyInjection;
 
-using R5T.Bulgaria;
 using R5T.Bulgaria.Default;
 using R5T.Bulgaria.UserProfileDirectory;
-using R5T.Carpathia;
 using R5T.Carpathia.Costobocia;
 using R5T.Carpathia.Default;
-using R5T.Costobocia;
 using R5T.Costobocia.Bulgaria;
 using R5T.Costobocia.Default;
 using R5T.Dacia;
 using R5T.Lombardy;
 using R5T.Ostrogothia;
-using R5T.Quadia;
 using R5T.Quadia.Carpathia;
 using R5T.Suebia.Default;
 using R5T.Suebia.Quadia;
-using R5T.Visigothia;
 using R5T.Visigothia.Default;
 
-using IOrganizationDirectoryPathProvider = R5T.Carpathia.IOrganizationDirectoryPathProvider;
-using IOrganizationalDirectoryPathProvider = R5T.Costobocia.IOrganizationDirectoryPathProvider;
+
 
 
 namespace R5T.Suebia.Standard
@@ -32,23 +26,7 @@ namespace R5T.Suebia.Standard
         /// <summary>
         /// Uses the Dropbox/Rivet/Shared/Secrets directory.
         /// </summary>
-        public static
-            (
-            IServiceAction<ISecretsDirectoryFilePathProvider> _,
-            IServiceAction<ISecretsDirectoryPathProvider> SecretsDirectoryPathProviderAction,
-            IServiceAction<IOrganizationDataDirectoryPathProvider> OrganizationDataDirectoryPathProviderAction,
-            IServiceAction<IOrganizationDirectoryPathProvider> OrganizationDirectoryPathProviderAction,
-            IServiceAction<ISharedOrganizationDirectoryPathProvider> SharedOrganizationDirectoryPathProviderAction,
-            IServiceAction<ISharedDirectoryNameProvider> SharedDirectoryNameProviderAction,
-            IServiceAction<IOrganizationalDirectoryPathProvider> OrganizationalDirectoryPathProviderAction,
-            IServiceAction<IOrganizationDirectoryNameProvider> OrganizationDirectoryNameProviderAction,
-            IServiceAction<IOrganizationsDirectoryPathProvider> OrganizationsDirectoryPathProviderAction, 
-            IServiceAction<IOrganizationsDirectoryNameProvider> OrganizationsDirectoryNameProviderAction,
-            IServiceAction<IDropboxDirectoryPathProvider> DropboxDirectoryPathProviderAction,
-            IServiceAction<IDropboxDirectoryNameProvider> DropboxDirectoryNameProviderAction,
-            IServiceAction<IUserProfileDirectoryPathProvider> UserProfileDirectoryPathProviderAction
-            )
-        AddSecretsDirectoryFilePathProviderAction(this IServiceCollection services,
+        public static SecretsDirectoryPathPrerequisitesAggregation01 AddSecretsDirectoryPathProviderActionPrerequisites(this IServiceCollection services,
             IServiceAction<IOrganizationProvider> organizationProviderAction,
             IServiceAction<IStringlyTypedPathOperator> stringlyTypedPathOperatorAction
             )
@@ -88,30 +66,91 @@ namespace R5T.Suebia.Standard
                 organizationDirectoryPathProviderAction,
                 stringlyTypedPathOperatorAction);
 
+            return new SecretsDirectoryPathPrerequisitesAggregation01
+            {
+                DropboxDirectoryNameProviderAction = dropboxDirectoryNameProviderAction,
+                DropboxDirectoryPathProviderAction = dropboxDirectoryPathProviderAction,
+                OrganizationalDirectoryPathProviderAction = organizationalDirectoryPathProviderAction,
+                OrganizationDataDirectoryPathProviderAction = organizationDataDirectoryPathProviderAction,
+                OrganizationDirectoryNameProviderAction = organizationDirectoryNameProviderAction,
+                OrganizationDirectoryPathProviderAction = organizationDirectoryPathProviderAction,
+                OrganizationsDirectoryNameProviderAction = organizationsDirectoryNameProviderAction,
+                OrganizationsDirectoryPathProviderAction = organizationsDirectoryPathProviderAction,
+                SharedDirectoryNameProviderAction = sharedDirectoryNameProviderAction,
+                SharedOrganizationDirectoryPathProviderAction = sharedOrganizationDirectoryPathProviderAction,
+                UserProfileDirectoryPathProviderAction = userProfileDirectoryPathProviderAction,
+            };
+        }
+
+        /// <summary>
+        /// Uses the Dropbox/Rivet/Shared/Secrets directory.
+        /// </summary>
+        public static SecretsDirectoryPathAggregation01 AddSecretsDirectoryPathProviderAction(this IServiceCollection services,
+            IServiceAction<IOrganizationProvider> organizationProviderAction,
+            IServiceAction<IStringlyTypedPathOperator> stringlyTypedPathOperatorAction
+            )
+        {
+            var secretsDirectoryPathPrerequisiteServices = services.AddSecretsDirectoryPathProviderActionPrerequisites(
+                organizationProviderAction,
+                stringlyTypedPathOperatorAction);
+
             var secretsDirectoryPathProviderAction = services.AddSecretsDirectoryPathProviderAction(
-                organizationDataDirectoryPathProviderAction,
+                secretsDirectoryPathPrerequisiteServices.OrganizationDataDirectoryPathProviderAction,
+                stringlyTypedPathOperatorAction);
+
+            return new SecretsDirectoryPathAggregation01
+            {
+                SecretsDirectoryPathProviderAction = secretsDirectoryPathProviderAction,
+            }
+            .FillFrom(secretsDirectoryPathPrerequisiteServices)
+            ;
+        }
+
+        /// <summary>
+        /// Uses the Dropbox/Rivet/Shared/Secrets directory.
+        /// </summary>
+        public static SecretsDirectoryFilePathAggregation01 AddSecretsDirectoryFilePathProviderServices(this IServiceCollection services,
+            IServiceAction<IOrganizationProvider> organizationProviderAction,
+            IServiceAction<IStringlyTypedPathOperator> stringlyTypedPathOperatorAction
+            )
+        {
+            var secretsDirectoryPathServices = services.AddSecretsDirectoryPathProviderAction(
+                organizationProviderAction,
                 stringlyTypedPathOperatorAction);
 
             var secretsDirectoryFilePathProviderAction = services.AddSecretsDirectoryFilePathProviderAction(
-                secretsDirectoryPathProviderAction,
+                secretsDirectoryPathServices.SecretsDirectoryPathProviderAction,
                 stringlyTypedPathOperatorAction);
 
-            return
-                (
-                secretsDirectoryFilePathProviderAction,
-                secretsDirectoryPathProviderAction,
-                organizationDataDirectoryPathProviderAction,
-                organizationDirectoryPathProviderAction,
-                sharedOrganizationDirectoryPathProviderAction,
-                sharedDirectoryNameProviderAction,
-                organizationalDirectoryPathProviderAction,
-                organizationDirectoryNameProviderAction,
-                organizationsDirectoryPathProviderAction,
-                organizationsDirectoryNameProviderAction,
-                dropboxDirectoryPathProviderAction,
-                dropboxDirectoryNameProviderAction,
-                userProfileDirectoryPathProviderAction
-                );
+            return new SecretsDirectoryFilePathAggregation01
+            {
+                SecretsDirectoryFilePathProviderAction = secretsDirectoryFilePathProviderAction,
+            }
+            .FillFrom(secretsDirectoryPathServices);
+        }
+
+        /// <summary>
+        /// Uses the Dropbox/Rivet/Shared/Secrets directory.
+        /// </summary>
+        public static OrganizationDataSecretsDirectoryPathAggregation01 AddSecretsDirectoryPathProviderActionAsOrganizationDataSecretsAction(this IServiceCollection services,
+            IServiceAction<IOrganizationProvider> organizationProviderAction,
+            IServiceAction<IStringlyTypedPathOperator> stringlyTypedPathOperatorAction
+            )
+        {
+            var secretsDirectoryPathPrerequisiteServices = services.AddSecretsDirectoryPathProviderActionPrerequisites(
+                organizationProviderAction,
+                stringlyTypedPathOperatorAction);
+
+            var secretsDirectoryPathProviderAction = services.AddSecretsDirectoryPathProviderAsOrganizationDataSecretsAction(
+                secretsDirectoryPathPrerequisiteServices.OrganizationDataDirectoryPathProviderAction,
+                stringlyTypedPathOperatorAction);
+
+            return new OrganizationDataSecretsDirectoryPathAggregation01
+            {
+                OrganizationDataSecretsDirectoryPathProviderAction = secretsDirectoryPathProviderAction,
+            }
+            .FillFrom(secretsDirectoryPathPrerequisiteServices)
+            ;
         }
     }
 }

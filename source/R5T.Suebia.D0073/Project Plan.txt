@@ -1,0 +1,9 @@
+R5T.Suebia.D0073 - Machine-location aware ISecretsDirectoryPathProvider service. IMachineLocationProvider (D0073, similar to R5T.Hastings but asynchronous) based implementation.
+
+* Async.
+* Parameterless GetX() methods.
+* Stringly-typed paths.
+
+
+Goals
+

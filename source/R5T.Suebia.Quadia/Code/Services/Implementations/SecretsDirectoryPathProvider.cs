@@ -7,7 +7,7 @@ using R5T.Quadia;
 
 namespace R5T.Suebia.Quadia
 {
-    public class SecretsDirectoryPathProvider : ISecretsDirectoryPathProvider
+    public class SecretsDirectoryPathProvider : IOrganizationDataSecretsDirectoryPathProvider
     {
         private IOrganizationDataDirectoryPathProvider OrganizationDataDirectoryPathProvider { get; }
         private IStringlyTypedPathOperator StringlyTypedPathOperator { get; }
