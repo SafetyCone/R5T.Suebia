@@ -17,8 +17,6 @@ using R5T.Suebia.Quadia;
 using R5T.Visigothia.Default;
 
 
-
-
 namespace R5T.Suebia.Standard
 {
     public static class IServiceCollectionExtensions
@@ -31,38 +29,38 @@ namespace R5T.Suebia.Standard
             IServiceAction<IStringlyTypedPathOperator> stringlyTypedPathOperatorAction
             )
         {
-            var userProfileDirectoryPathProviderAction = services.AddUserProfileDirectoryPathProviderAction();
-            var dropboxDirectoryNameProviderAction = services.AddDropboxDirectoryNameProviderAction();
-            var organizationsDirectoryNameProviderAction = services.AddOrganizationsDirectoryNameProviderAction();
-            var organizationDirectoryNameProviderAction = services.AddOrganizationDirectoryNameProviderAction(
+            var userProfileDirectoryPathProviderAction = services.AddUserProfileDirectoryPathProviderAction_Old();
+            var dropboxDirectoryNameProviderAction = services.AddDropboxDirectoryNameProviderAction_Old();
+            var organizationsDirectoryNameProviderAction = services.AddOrganizationsDirectoryNameProviderAction_Old();
+            var organizationDirectoryNameProviderAction = services.AddOrganizationDirectoryNameProviderAction_Old(
                 organizationProviderAction);
 
-            var dropboxDirectoryPathProviderAction = services.AddDropboxDirectoryPathProviderAction(
+            var dropboxDirectoryPathProviderAction = services.AddDropboxDirectoryPathProviderAction_Old(
                 dropboxDirectoryNameProviderAction,
                 stringlyTypedPathOperatorAction,
                 userProfileDirectoryPathProviderAction);
 
-            var organizationsDirectoryPathProviderAction = services.AddOrganizationsDirectoryPathProviderAction(
+            var organizationsDirectoryPathProviderAction = services.AddOrganizationsDirectoryPathProviderAction_Old(
                 dropboxDirectoryPathProviderAction,
                 organizationsDirectoryNameProviderAction,
                 stringlyTypedPathOperatorAction);
 
             // Use the shared organization directory.
             // Use organizaztional directory path provider for shared organization directory path provider.
-            var organizationalDirectoryPathProviderAction = services.AddOrganizationDirectoryPathProviderAction(
+            var organizationalDirectoryPathProviderAction = services.AddOrganizationDirectoryPathProviderAction_Old(
                 organizationDirectoryNameProviderAction,
                 organizationsDirectoryPathProviderAction,
                 stringlyTypedPathOperatorAction);
 
-            var sharedDirectoryNameProviderAction = services.AddSharedDirectoryNameProviderAction();
-            var sharedOrganizationDirectoryPathProviderAction = services.AddSharedOrganizationDirectoryPathProviderAction(
+            var sharedDirectoryNameProviderAction = services.AddSharedDirectoryNameProviderAction_Old();
+            var sharedOrganizationDirectoryPathProviderAction = services.AddSharedOrganizationDirectoryPathProviderAction_Old(
                 organizationalDirectoryPathProviderAction,
                 sharedDirectoryNameProviderAction,
                 stringlyTypedPathOperatorAction);
-            var organizationDirectoryPathProviderAction = services.UseSharedOrganizationDirectoryPathProviderAction(
+            var organizationDirectoryPathProviderAction = services.UseSharedOrganizationDirectoryPathProviderAction_Old(
                 sharedOrganizationDirectoryPathProviderAction);
 
-            var organizationDataDirectoryPathProviderAction = services.AddOrganizationDataDirectoryPathProviderAction(
+            var organizationDataDirectoryPathProviderAction = services.AddOrganizationDataDirectoryPathProviderAction_Old(
                 organizationDirectoryPathProviderAction,
                 stringlyTypedPathOperatorAction);
 
@@ -94,7 +92,7 @@ namespace R5T.Suebia.Standard
                 organizationProviderAction,
                 stringlyTypedPathOperatorAction);
 
-            var secretsDirectoryPathProviderAction = services.AddSecretsDirectoryPathProviderAction(
+            var secretsDirectoryPathProviderAction = services.AddSecretsDirectoryPathProviderAction_Old(
                 secretsDirectoryPathPrerequisiteServices.OrganizationDataDirectoryPathProviderAction,
                 stringlyTypedPathOperatorAction);
 
@@ -118,7 +116,7 @@ namespace R5T.Suebia.Standard
                 organizationProviderAction,
                 stringlyTypedPathOperatorAction);
 
-            var secretsDirectoryFilePathProviderAction = services.AddSecretsDirectoryFilePathProviderAction(
+            var secretsDirectoryFilePathProviderAction = services.AddSecretsDirectoryFilePathProviderAction_Old(
                 secretsDirectoryPathServices.SecretsDirectoryPathProviderAction,
                 stringlyTypedPathOperatorAction);
 
@@ -141,7 +139,7 @@ namespace R5T.Suebia.Standard
                 organizationProviderAction,
                 stringlyTypedPathOperatorAction);
 
-            var secretsDirectoryPathProviderAction = services.AddSecretsDirectoryPathProviderAsOrganizationDataSecretsAction(
+            var secretsDirectoryPathProviderAction = services.AddSecretsDirectoryPathProviderAsOrganizationDataSecretsAction_Old(
                 secretsDirectoryPathPrerequisiteServices.OrganizationDataDirectoryPathProviderAction,
                 stringlyTypedPathOperatorAction);
 

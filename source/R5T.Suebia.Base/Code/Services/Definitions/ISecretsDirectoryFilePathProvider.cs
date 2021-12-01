@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Threading.Tasks;
 
+using R5T.T0064;
+
 
 namespace R5T.Suebia
 {
-    public interface ISecretsDirectoryFilePathProvider
+    [ServiceDefinitionMarker]
+    public interface ISecretsDirectoryFilePathProvider : IServiceDefinition
     {
         /// <summary>
         /// Get the full path of a file in the secrets directory given its file name.

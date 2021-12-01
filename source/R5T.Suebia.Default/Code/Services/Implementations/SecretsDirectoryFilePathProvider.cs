@@ -3,10 +3,13 @@ using System.Threading.Tasks;
 
 using R5T.Lombardy;
 
+using R5T.T0064;
+
 
 namespace R5T.Suebia.Default
 {
-    public class SecretsDirectoryFilePathProvider : ISecretsDirectoryFilePathProvider
+    [ServiceImplementationMarker]
+    public class SecretsDirectoryFilePathProvider : ISecretsDirectoryFilePathProvider, IServiceImplementation
     {
         private ISecretsDirectoryPathProvider SecretsDirectoryPathProvider { get; }
         private IStringlyTypedPathOperator StringlyTypedPathOperator { get; }
