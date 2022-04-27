@@ -1,9 +1,9 @@
-﻿using System;
+using System;using R5T.T0064;
 
 
 namespace R5T.Suebia.D0073
-{
-    public interface IMachineLocationAwareSecretsDirectoryPathProvider : ISecretsDirectoryPathProvider
+{[ServiceDefinitionMarker]
+    public interface IMachineLocationAwareSecretsDirectoryPathProvider : ISecretsDirectoryPathProvider,IServiceDefinition
     {
     }
 }
