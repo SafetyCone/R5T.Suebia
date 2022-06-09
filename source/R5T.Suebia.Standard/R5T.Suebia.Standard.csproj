@@ -1,10 +1,10 @@
 <Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>7.3</LangVersion>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>1591;1573</NoWarn>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\..\R5T.Bulgaria\source\R5T.Bulgaria.Default\R5T.Bulgaria.Default.csproj" />
     <ProjectReference Include="..\..\..\R5T.Bulgaria\source\R5T.Bulgaria.UserProfileDirectory\R5T.Bulgaria.UserProfileDirectory.csproj" />
@@ -18,5 +18,4 @@
     <ProjectReference Include="..\R5T.Suebia.Default\R5T.Suebia.Default.csproj" />
     <ProjectReference Include="..\R5T.Suebia.Quadia\R5T.Suebia.Quadia.csproj" />
   </ItemGroup>
-
 </Project>
